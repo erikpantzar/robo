@@ -5,40 +5,12 @@
 // L R F
 // unit test
 
-
-const dir = ['N', 'E', 'S', 'W'];
-const l = dir.length;
-
-function changeDirection(input='R', robot=walle) {
-  let direction = robot.getPosition().direction, bool = true;
-  if (input === 'V' || input === 'L') {
-    bool = false;
-  }  // else input === 'H' || input === 'R'
-
-  if(bool) {
-    // array to one right
-    dir.push(dir.shift());
-  } else {
-    dir.unshift(dir[3]);
-    dir.pop();
-  }
-  
-  console.log(input, robot, dir[0]);
-  return dir[0];
-}
-
 class Robot {
   constructor(x, y, direction='N') {
     this.x = x;
     this.y = y;
     this.direction = direction;
-  }
-
-  getPosition() {
-    return {
-      point: { x: this.x, y: this.y },
-      direction: this.direction
-    }
+    this.dir = ['N', 'E', 'S', 'W'];
   }
 
   action(move="VHG") {
@@ -47,11 +19,26 @@ class Robot {
       if (m === 'G' || m === 'F') {
         this.forward(this.direction);
       } else {
-        this.direction = changeDirection(m, this);
+        this.direction = this.changeDirection(m, this);
       }
-    })
-    
+      console.log(`Moving: ${m}`, { x: this.x, y: this.y, direction: this.direction });
+    })   
   }
+
+  changeDirection(input='R') {
+    let bool = true;
+    if (input === 'V' || input === 'L') {
+      bool = false;
+    }  // else input === 'H' || input === 'R'
+
+    if(bool) {
+      this.dir.push(this.dir.shift());
+    } else {
+      this.dir.unshift(this.dir[3]);
+      this.dir.pop();
+    }
+    return this.dir[0];
+}
 
   forward(direction='N') {
     switch(direction) {
@@ -67,12 +54,10 @@ class Robot {
       default:
       this.x--
     }
-
-    console.log(this);
   }
 }
 
 
-let walle = new Robot(1,2);
-//console.log(walle.getPosition());
-walle.action('RLG');
+console.log('Robot named CJ gets initiaded at point 1,2');
+let cj = new Robot(1,2);
+cj.action("HGHGGHGHG"); // Result 1,1,N 
