@@ -21,15 +21,18 @@ class Robot {
       } else {
         this.direction = this.changeDirection(m, this);
       }
-      console.log(`Moving: ${m}`, { x: this.x, y: this.y, direction: this.direction });
     })
+  }
+
+  position() {
+      return `${this.x} ${this.y} ${this.direction}`;
   }
 
   changeDirection(input='R') {
     let bool = true;
     if (input === 'V' || input === 'L') {
       bool = false;
-    }  // else input === 'H' || input === 'R'
+    }
 
     if(bool) {
       this.dir.push(this.dir.shift());
@@ -38,7 +41,7 @@ class Robot {
       this.dir.pop();
     }
     return this.dir[0];
-}
+  }
 
   forward(direction='N') {
     switch(direction) {
@@ -57,7 +60,9 @@ class Robot {
   }
 }
 
+module.exports = Robot;
 
-console.log('Robot named CJ gets initiaded at point 1,2');
-let cj = new Robot(1,2);
-cj.action("HGHGGHGHG"); // Result 1,1,N
+
+// let cj = new Robot(1,2);
+// cj.action('HGHGGHGHG'); // Result 1,1,N
+// console.log(cj.position());

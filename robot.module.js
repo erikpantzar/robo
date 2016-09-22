@@ -12,7 +12,6 @@ let robotComponent = {
         ctrl.dir = ['N', 'E', 'S', 'W'];
         ctrl.direction = this.direction;
         ctrl.position = this.position;
-        console.log(this);
 
         ctrl.forward = (direction='N') => {
             switch(direction) {
@@ -46,8 +45,6 @@ let robotComponent = {
         };
 
         ctrl.move = (action) => {
-            console.log('move is called: ', action);
-
             if (action === 'G' || action === 'F') {
                 ctrl.forward(ctrl.direction);
             } else {
