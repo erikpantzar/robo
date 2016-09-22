@@ -12,27 +12,33 @@
             color: #444;
         }
 
+        @media (min-width: 600px) {
+            body {
+                font: 12vh/10vh sans-serif;
+            }
+        }
+
         /* Presentation of position */
         robot-position span { position: relative; }
         robot-position span:after {
             position: absolute;
-            bottom: -5%;
+            bottom: -2%;
             font-size: 3vh;
             letter-spacing: -1px;
             color: rgba(0,0,0,0.2);
         }
 
         robot-position span:nth-of-type(1):after {
-            content: "X:";
-            left: -20%;
+            content: "X";
+            left: -5%;
         }
         robot-position span:nth-of-type(2):after {
-            content: "Y:";
-            left: -20%;
+            content: "Y";
+            left: -5%;
         }
         robot-position span:nth-of-type(3):after {
             content: "Direction";
-            right: -100%;
+            right: -40%;
         }
 
 
@@ -48,7 +54,7 @@
             content: "Position of the robot";
             position: absolute;
             text-align: center;
-            top: -55%;
+            top: -90%;
             left: 0;
             right: 0;
             font-size: 4vh;
@@ -85,10 +91,10 @@
             color: white;
             border: 0;
             box-shadow: none;
-            font-size: 12vw;
-            line-height: 15vw;
-            width: 15vw;
-            height: 15vw;
+            font-size: 9vh;
+            line-height: 10vh;
+            width: 10vh;
+            height: 10vh;
             text-align: center;
             text-indent: 999px;
             position: relative;
