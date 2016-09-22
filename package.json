@@ -1,0 +1,22 @@
+{
+  "name": "robot",
+  "version": "1.0.0",
+  "description": "Comment about the constructur, I have the dirArray in there to keep it close to the class (had it outside with a helper function at first), had a glance at what private properties are but made the choice that it  wasn't that horrible to have an extra property in the  constructor as of now.",
+  "main": "robo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikpantzar/robo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikpantzar/robo/issues"
+  },
+  "homepage": "https://github.com/erikpantzar/robo#readme",
+  "devDependencies": {
+    "angular": "^1.5.8"
+  }
+}
