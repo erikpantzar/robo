@@ -2,20 +2,170 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="initial-scale=1">
     <title>Document</title>
+    <style>
+        body, html {
+            margin: 0; padding: 2vh 2vw;
+            background: #efefef;
+            font: 9vh/10vh sans-serif;
+            color: #444;
+        }
+
+        /* Presentation of position */
+        robot-position {}
+
+        h2 {
+            margin: 0 0 4vh;
+            color: rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h2:after {
+            color: rgba(0,0,0,0.2);
+            content: "Position of the robot";
+            position: absolute;
+            text-align: center;
+            top: -25%;
+            left: 0;
+            right: 0;
+            font-size: 4vh;
+            line-height: 5vh;
+            width: 100%;
+        }
+
+        .nav {
+            padding: 0 20px;
+            position: fixed;
+            bottom: 0px; left: 0; right: 0;
+            background: rgba(34, 31, 31, 1.0);
+            color: white;
+            width: 100%;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        .nav a { color: #41b6e6; }
+
+        /* Main RobotComponent */
+        robot {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            width: 100%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Controllz */
+        robot-controller button {
+            background: #41b6e6;
+            color: white;
+            border: 0;
+            box-shadow: none;
+            font-size: 12vw;
+            line-height: 15vw;
+            width: 15vw;
+            height: 15vw;
+            text-align: center;
+            text-indent: 999px;
+            position: relative;
+            outline: none;
+            transition: all 300ms ease-in;
+            border-radius: 50%;
+        }
+        robot-controller button:active {
+            background: #1299dd;
+            transition: all 80ms ease-out;
+        }
+
+        robot-controller button:after {
+            background-position: center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+
+        @keyframes unease {
+            from {
+                transform: scale(0.98) translateY(3%);
+            }
+            to {
+                transform: scale(1.05)  translateY(-1%);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes swing {
+            0% { transform: translateY(0%); }
+            25% { transform: translateY(-15%); }
+            50% { transform: translateY(-35%); }
+            100% {  transform: translateY(25%);}
+        }
+
+        robot-controller button:nth-of-type(2):active,
+        robot-controller button:nth-of-type(2):hover,
+        robot-controller button:nth-of-type(2):focus {
+            animation: swing 300ms infinite ease-in;
+        }
+
+        robot-controller button:nth-of-type(1):active,
+        robot-controller button:nth-of-type(1):hover,
+        robot-controller button:nth-of-type(1):focus {
+            animation: spin 450ms infinite linear;
+            animation-fill-mode: backwards;
+            animation-direction: reverse;
+        }
+
+        robot-controller button:nth-of-type(3):active,
+        robot-controller button:nth-of-type(3):hover,
+        robot-controller button:nth-of-type(3):focus {
+            animation: spin 450ms infinite linear;
+            animation-fill-mode: forwards;
+        }
+
+        robot-controller button:nth-of-type(1):after {
+            animation: unease 1s infinite alternate;
+            background-image: url('data:image/png;base64,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');
+        }
+
+        robot-controller button:nth-of-type(2):after {
+            animation: unease 1s 0.5s infinite alternate;
+            background-position: center 40%;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAwCAYAAACG5f33AAAAAXNSR0IArs4c6QAAAwlJREFUaAXtl2ly00AQRqMknJSioEhI4AbsO+QnxRaHfb0U3APM+5JpSha2GKlH0kh2V31pRzXd6n7TM2VvbWVs8/n8upRxifmWFuDhTm0DMXarwFWgG2fcFv7qWRGbZy3XCRBaBs9IbiCumowA76aRqvFas5nEMsgG8IzrBqIBbAFvA7EC75YRaeEVu57HWY0jDzzjvX4QA7zbRiCBV671mMQO4Bn/6UPsEN70IQZ4d6zTDr3eMa3j3CM825fpQAzw7lpnPXq9c9yTOCA826fxQkwE7zt5JI+NDyLd6kvyPU/XxArcuSAvRNUyjuOsQpEX3jeBK/3kE0g981j+EOlO8O57uiT2K/oLLzFE1ZbnJKowlALerkGreoFFAuyx/CDSTQp4X8izEp7BZM20IAZ4D/Ae+0zwf+GVIO6y3juJqnnY46wCkBfeJ3JEw6tA1NR6bDiIVC14Dz3VE9sKXgWiptdj6qHfSdQL0aDwRgsxEbyP5Gl8bA1a1SsX0jR7rPtJpDpN3iNPlcR+QMngGUzlRF6I6q2b46zEKAW8HWs6tac+QdR0eyw9RKoRvMeeqoh9jzqDZ5vBOwRRU+4x9ZpmEpUIeeG9I0fn8LKDmAje2z7hZQMxwHuC99gg8EoQdyheV4fHxKDZcVYAGjW8wSAGeE/xHntDcG93nsFa5VUL0j3sMTGpn0QtQF54J+TIBp5BVU2oO4gkTwFvpkKt6Ny8akO6lz327ySSTfCOPFmJnaFs4dlmqkakK8ZjYnV2nPUBeeEdk2PbiszdU2s6iAngvR4TPNvcAFH3tceONDU/LWkLf0zMhaIofreIHTSEmn9RwHl04ijkx2ksW3CtxTa8ImY0x3YVJHrQcZ6hpna4kJPoqw0yvGTt6OEZAHoRRN3jsXZgsQue6MOIDJOCZwDoexvFQNy3mKWeJAc1EF/oRUsDJ/BQvaE6iHtRbZLkCqrapOEZGJoWRH2zqNplWxPlid4vZXjO58lOXhWIekVliJeqa6L+J8keeqaEUQETWqSekU7dxbq2/gBeGgJD0I18kQAAAABJRU5ErkJggg==')
+        }
+
+        robot-controller button:nth-of-type(3):after {
+            animation: unease 1s 0.4s infinite alternate;
+            background-image: url('data:image/png;base64,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');
+        }
+
+
+    </style>
   </head>
   <body ng-app="robot">
 
+
+
     <robot position="{ x: 0, y: 0 }" direction="'N'"></robot>
 
+    <nav class="nav">
+        <p>
+            Test: <a href="angular-robot.spec.html">angular-robot.spec.html</a>
+        </p>
 
-    <p>
-        Test: <a href="angular-robot.spec.html">angular-robot.spec.html</a>
-    </p>
+        <p>
+            Vanilla robot: <a href="index.html">index.html</a>
+        </p>
+    </nav>
 
-    <p>
-        Vanilla robot: <a href="index.html">index.html</a>
-    </p>
     <script src="lib/angular/angular.js"></script>
     <script src="angular-robot.module.js"></script>
   </body>
