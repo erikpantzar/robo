@@ -18,6 +18,7 @@
   "homepage": "https://github.com/erikpantzar/robo#readme",
   "devDependencies": {
     "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
     "jasmine": "^2.5.2"
   }
 }

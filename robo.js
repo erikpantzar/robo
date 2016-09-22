@@ -60,9 +60,8 @@ class Robot {
   }
 }
 
-module.exports = Robot;
 
 
-// let cj = new Robot(1,2);
-// cj.action('HGHGGHGHG'); // Result 1,1,N
-// console.log(cj.position());
+let cj = new Robot(1,2);
+cj.action('HGHGGHGHG');
+console.log(cj.position());
