@@ -17,13 +17,13 @@ let robotComponent = {
         ctrl.forward = (direction='N') => {
             switch(direction) {
               case 'N':
-              ctrl.position.y++
+              ctrl.position.y--
               break;
               case 'E':
               ctrl.position.x++
               break;
               case 'S':
-              ctrl.position.y--
+              ctrl.position.y++
               break;
               default:
               ctrl.position.x--

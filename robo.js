@@ -22,7 +22,7 @@ class Robot {
         this.direction = this.changeDirection(m, this);
       }
       console.log(`Moving: ${m}`, { x: this.x, y: this.y, direction: this.direction });
-    })   
+    })
   }
 
   changeDirection(input='R') {
@@ -43,13 +43,13 @@ class Robot {
   forward(direction='N') {
     switch(direction) {
       case 'N':
-      this.y++
+      this.y--
       break;
       case 'E':
       this.x++
       break;
       case 'S':
-      this.y--
+      this.y++
       break;
       default:
       this.x--
@@ -60,4 +60,4 @@ class Robot {
 
 console.log('Robot named CJ gets initiaded at point 1,2');
 let cj = new Robot(1,2);
-cj.action("HGHGGHGHG"); // Result 1,1,N 
+cj.action("HGHGGHGHG"); // Result 1,1,N
